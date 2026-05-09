@@ -4,7 +4,7 @@ Kubernetes cluster'larını güvenlik açıkları için tarayan kapsamlı deneti
 
 ## Ne Yapıyor?
 
-4 farklı modülde Kubernetes cluster'ını analiz ederek 0-100 arası güvenlik skoru üretir.
+5 farklı modülde Kubernetes cluster'ını analiz ederek 0-100 arası güvenlik skoru üretir ve CIS Kubernetes Benchmark kontrollerini çalıştırır.
 
 ## Modüller
 
@@ -12,6 +12,24 @@ Kubernetes cluster'larını güvenlik açıkları için tarayan kapsamlı deneti
 - Pod Güvenliği — Privileged container, host network/PID/IPC, security context, resource limits
 - Network — Network Policy eksikliği, LoadBalancer servisleri, tehlikeli portlar, TLS kontrolü
 - Secret — Hassas veri anahtarları, default namespace secret'ları, boş değer kontrolü
+- CIS Benchmark — 14 kontrol, otomatik düzeltme önerileri, uyumluluk oranı
+
+## CIS Benchmark Kontrolleri
+
+- API Server anonymous auth
+- Audit logging durumu
+- TLS şifreleme
+- cluster-admin kullanımı
+- Wildcard izinler
+- Default SA binding
+- Privileged pod kontrolü
+- Host network pod kontrolü
+- Root container kontrolü
+- Resource limits kontrolü
+- Network Policy varlığı
+- Default namespace kullanımı
+- Secret şifreleme
+- Default namespace secret kontrolü
 
 ## Teknolojiler
 
