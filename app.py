@@ -3,6 +3,7 @@ from modules.rbac_auditor import audit_rbac
 from modules.pod_auditor import audit_pods
 from modules.network_auditor import audit_network
 from modules.secret_auditor import audit_secrets
+from modules.cis_benchmark import run_cis_benchmark
 from modules.score_engine import calculate_score
 
 app = Flask(__name__)
@@ -16,20 +17,23 @@ def scan():
     print("\n🔍 Kubernetes Güvenlik Denetimi Başlıyor...")
 
     try:
-        print("  [1/4] RBAC analizi...")
+        print("  [1/5] RBAC analizi...")
         rbac_results = audit_rbac()
 
-        print("  [2/4] Pod analizi...")
+        print("  [2/5] Pod analizi...")
         pod_results = audit_pods()
 
-        print("  [3/4] Network analizi...")
+        print("  [3/5] Network analizi...")
         network_results = audit_network()
 
-        print("  [4/4] Secret analizi...")
+        print("  [4/5] Secret analizi...")
         secret_results = audit_secrets()
 
+        print("  [5/5] CIS Benchmark...")
+        cis_results = run_cis_benchmark()
+
         print("  Skor hesaplanıyor...")
-        score = calculate_score(rbac_results, pod_results, network_results, secret_results)
+        score = calculate_score(rbac_results, pod_results, network_results, secret_results, cis_results)
 
         print(f"  ✅ Tamamlandı — Skor: {score['total_score']}")
 
@@ -38,7 +42,8 @@ def scan():
             "rbac": rbac_results,
             "pods": pod_results,
             "network": network_results,
-            "secrets": secret_results
+            "secrets": secret_results,
+            "cis": cis_results
         })
 
     except Exception as e:
